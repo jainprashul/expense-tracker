@@ -1,3 +1,4 @@
+import Layout from '@/components/shared/Layout'
 import Home from '@/view/Home'
 import Login from '@/view/login/Login'
 import Transaction from '@/view/transaction/Transaction'
@@ -10,10 +11,15 @@ const AppRoutes = (_: Props) => {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login/>} />
-        <Route path="/" element={<Home/>} />
-        <Route path="/transactions" element={<Transaction/>} />
-        <Route path="/about" element={<div>About</div>} />
-        <Route path="/contact" element={<div>Contact</div>} />
+        <Route path="/register" element={<div>Register</div>} />
+        <Route path="/*" element={
+          <Layout>
+            <Routes>
+              <Route path="/" element={<Home/>} />
+              <Route path="/transactions" element={<Transaction/>} />
+            </Routes>
+          </Layout>
+        } />
       </Routes>
     </BrowserRouter>
   )

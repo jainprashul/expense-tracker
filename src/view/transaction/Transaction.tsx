@@ -1,7 +1,7 @@
 import Loading from "@/components/shared/Loading"
 import MiniTransaction from "@/components/shared/MiniTransaction"
+import Page from "@/components/shared/Page"
 import { fetchExpenses } from "@/store/context/expenseSlice"
-import { utilityActions } from "@/store/context/utilitySlice"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
 import Expense from "@/types/Expense"
 import moment from "moment"
@@ -16,7 +16,6 @@ const Transaction = (_: Props) => {
   const [loading, setLoading] = React.useState(true)
 
   useEffect(() => {
-    dispatch(utilityActions.setHeader({ title: 'Transactions' , goBack: true }))
     dispatch(fetchExpenses()).finally(() => {
       setLoading(false)
     })
@@ -29,9 +28,8 @@ const Transaction = (_: Props) => {
   const groupedTransactions = groupByDate(transactions)
 
   return (
-    <>
-    <div className="container max-h-screen p-4 flex flex-col">
-      <div className="flex-grow overflow-y-scroll mt-4 grid grid-cols-1 gap-4  px-2 scrollbar">
+    <Page title="Transaction">
+      <div className="flex-grow overflow-y-scroll mt-4 grid grid-cols-1 gap-4  px-4 scrollbar">
          {Object.keys(groupedTransactions).map((date) => (
         <div key={date}>
           <h2 className="text-lg font-semibold pb-1 mb-1 border-b">{date}</h2>
@@ -45,10 +43,9 @@ const Transaction = (_: Props) => {
       </div>
 
 
-    </div>
 
     
-    </>
+    </Page>
   )
 }
 

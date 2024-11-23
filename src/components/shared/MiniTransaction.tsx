@@ -1,6 +1,7 @@
 import Expense from "@/types/Expense"
 import moment from "moment"
 import { Badge } from "../ui/badge"
+import { MoveDownLeft, MoveUpRight } from "lucide-react"
 
 type Props = {
   transaction : Expense
@@ -11,8 +12,11 @@ function MiniTransaction({ transaction }: Props) {
   const renderTransaction = (transaction: Expense, amt: number, extra: boolean = false) => {
     const positive = amt > 0;
     return (
-      <div key={transaction.id + (extra ? '-extra' : '')} className="grid grid-cols-[28px_1fr_auto] items-start last:mb-0 last:pb-0">
-        <span className={`flex h-4 w-4 rounded-full translate-y-1 ${positive ? `bg-green-500` : `bg-red-500`}`}></span>
+      <div key={transaction.id + (extra ? '-extra' : '')} className="grid grid-cols-[32px_1fr_auto] items-center last:mb-0 last:pb-0">
+        {positive ? 
+          <MoveDownLeft className=" text-green-500" /> :
+          <MoveUpRight className=" text-red-500" /> 
+        }
         <div className="space-y-1">
           <p className="text-sm font-semibold">{transaction.description}</p>
           <div className="flex space-x-1 items-center">

@@ -1,14 +1,19 @@
-import { useAppSelector } from "@/store/hooks"
+
 import { ChevronLeft } from "lucide-react"
 
-type Props = {}
+type Props = {
+  title?: string
+  onGoBack?: boolean
+}
 
-const Header = (_: Props) => {
-  const header = useAppSelector((state) => state.utility.header)
+const Header = ({
+  title = 'Expense Tracker',
+  onGoBack,
+}: Props) => {
   return (
     <header className="flex items-center gap-2 border-b px-4 bg-zinc-800 h-16">
-      {header.goBack && <GoBack />}
-      <h1 className="text-2xl font-bold">{header.title}</h1>
+      {onGoBack && <GoBack />}
+      <h1 className="text-2xl font-bold">{title}</h1>
     </header>
   )
 }
@@ -16,6 +21,8 @@ const Header = (_: Props) => {
 export default Header
 
 function GoBack () {
+
+  console.log(window.history)
 
   if (window.history.length < 2) {
     return
