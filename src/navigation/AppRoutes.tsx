@@ -1,6 +1,6 @@
 import Home from '@/view/Home'
 import Login from '@/view/login/Login'
-import React from 'react'
+import Transaction from '@/view/transaction/Transaction'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 type Props = {}
@@ -11,6 +11,7 @@ const AppRoutes = (_: Props) => {
       <Routes>
         <Route path="/login" element={<Login/>} />
         <Route path="/" element={<Home/>} />
+        <Route path="/transactions" element={<Transaction/>} />
         <Route path="/about" element={<div>About</div>} />
         <Route path="/contact" element={<div>Contact</div>} />
       </Routes>

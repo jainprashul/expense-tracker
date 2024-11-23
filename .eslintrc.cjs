@@ -15,7 +15,17 @@ module.exports = {
       { allowConstantExport: true },
     ],
     "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-empty-object-type": "error",
+    "@typescript-eslint/no-empty-object-type": "off",
+
+    //ban types
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        "argsIgnorePattern": "^{}$",
+      }
+     
+      
+    ],
    
     "@typescript-eslint/no-unused-vars": [
       "error",
