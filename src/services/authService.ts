@@ -25,5 +25,28 @@ export const authService = {
     if (error) {
       throw new Error(error.message);
     }
-  }
+  },
+
+  signup : async (email: string, password: string) => {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password
+    })
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return data;
+  },
+
+  resetPassword : async (email: string) => {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${import.meta.env.VITE_APP_URL}/reset-password`
+    })
+
+    if (error) {
+      throw new Error(error.message);
+    }
+  },
 };

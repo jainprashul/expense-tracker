@@ -8,6 +8,7 @@ import { transactionService } from "@/services/expenseService"
 import Transaction from "@/types/Transaction"
 import React, { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import { Chart } from "./Chart"
 
 
 type Props = {}
@@ -34,7 +35,7 @@ const Home = (_: Props) => {
   return (
     <Page >
     <div className="p-4 w-full">
-
+      <Chart />
       <Card className="mt-4">
         <CardHeader>
           <CardTitle>Recent Transactions</CardTitle>
@@ -47,7 +48,6 @@ const Home = (_: Props) => {
             transactions.map((transaction) =>
               <MiniTransaction key={transaction.id} transaction={transaction} />)
           }
-
         </CardContent>
         <CardFooter className="space-x-2">
           <Button onClick={() => navigate('/transactions')}>View All</Button>

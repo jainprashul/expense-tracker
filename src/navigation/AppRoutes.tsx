@@ -1,5 +1,5 @@
 import Layout from '@/components/shared/Layout'
-import Home from '@/view/Home'
+import Home from '@/view/home/Home'
 import Login from '@/view/login/Login'
 import AddTransaction from '@/view/transaction/AddTransaction'
 import Transaction from '@/view/transaction/TransactionPage'

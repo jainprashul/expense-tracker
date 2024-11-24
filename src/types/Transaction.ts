@@ -8,3 +8,10 @@ export default interface Transaction {
   notes?: string
   user_id?: string
 }
+
+
+export interface MontlyExpense {
+  date: string
+  total_paid: number | null
+  total_received: number | null
+}

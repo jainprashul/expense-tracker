@@ -1,5 +1,6 @@
 import supabase from "@/lib/supabase";
 import Transaction from "@/types/Transaction";
+import moment from "moment";
 
 export const transactionService = {
 
@@ -15,6 +16,18 @@ export const transactionService = {
     }
 
     return data as Transaction[];
+  },
+
+
+  getMonthlyExpenses: async (monthYear = moment().format('YYYY-MM')) => {
+
+    const { data, error } = await supabase
+      .rpc('get_daily_expenses', { month : monthYear });
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return data;
   },
 
   addTransaction: async (transaction: Transaction) => {
