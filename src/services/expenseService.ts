@@ -1,7 +1,7 @@
 import supabase from "@/lib/supabase";
-import Expense from "@/types/Expense";
+import Transaction from "@/types/Transaction";
 
-export const expenseService = {
+export const transactionService = {
 
   getTransactions: async (limit?: number) => {
     const { data, error } = await supabase
@@ -14,7 +14,18 @@ export const expenseService = {
       throw new Error(error.message);
     }
 
-    return data as Expense[];
+    return data as Transaction[];
+  },
+
+  addTransaction: async (transaction: Transaction) => {
+    const {  error } = await supabase
+      .from('expenses')
+      .insert([transaction]);
+
+    if (error) {
+      throw new Error(error.message);
+    }
+    
   },
 
 

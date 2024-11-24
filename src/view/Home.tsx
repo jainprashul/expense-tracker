@@ -4,8 +4,8 @@ import Page from "@/components/shared/Page"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import withAuth from "@/navigation/withAuth"
-import { expenseService } from "@/services/expenseService"
-import Expense from "@/types/Expense"
+import { transactionService } from "@/services/expenseService"
+import Transaction from "@/types/Transaction"
 import React, { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
@@ -15,11 +15,11 @@ type Props = {}
 const Home = (_: Props) => {
 
   const [loading, setLoading] = React.useState(true)
-  const [transactions, setTransactions] = React.useState<Expense[]>([])
+  const [transactions, setTransactions] = React.useState<Transaction[]>([])
   const navigate = useNavigate()
 
   useEffect(() => {
-    expenseService.getTransactions(5).then((data) => {
+    transactionService.getTransactions(5).then((data) => {
       setLoading(false)
       setTransactions(data)
       console.log(data)
@@ -49,8 +49,9 @@ const Home = (_: Props) => {
           }
 
         </CardContent>
-        <CardFooter>
+        <CardFooter className="space-x-2">
           <Button onClick={() => navigate('/transactions')}>View All</Button>
+          <Button onClick={() => navigate('/add-transaction')}>Add Transaction</Button>
         </CardFooter>
       </Card>
     </div>

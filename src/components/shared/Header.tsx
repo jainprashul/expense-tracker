@@ -1,5 +1,6 @@
 
 import { ChevronLeft } from "lucide-react"
+import React from "react"
 
 type Props = {
   title?: string
@@ -18,7 +19,7 @@ const Header = ({
   )
 }
 
-export default Header
+export default React.memo(Header)
 
 function GoBack () {
 

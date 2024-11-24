@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import Expense from '@/types/Expense'
-import { expenseService } from '@/services/expenseService'
+import Transaction from '@/types/Transaction'
+import { transactionService } from '@/services/expenseService'
 
 
 // Define a type for the slice state
 interface InitState {
-  data : Expense[]
+  data : Transaction[]
   loading: boolean
-  current: Expense | null
+  current: Transaction | null
 }
 
 // Define the initial state using that type
@@ -19,7 +19,7 @@ const initialState: InitState = {
 }
 
 export const fetchExpenses = createAsyncThunk( 'expense/fetchExpenses', async () => {
-  const response = await expenseService.getTransactions()
+  const response = await transactionService.getTransactions()
   return response
 })
 

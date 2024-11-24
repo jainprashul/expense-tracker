@@ -1,7 +1,8 @@
 import Layout from '@/components/shared/Layout'
 import Home from '@/view/Home'
 import Login from '@/view/login/Login'
-import Transaction from '@/view/transaction/Transaction'
+import AddTransaction from '@/view/transaction/AddTransaction'
+import Transaction from '@/view/transaction/TransactionPage'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 type Props = {}
@@ -17,6 +18,7 @@ const AppRoutes = (_: Props) => {
             <Routes>
               <Route path="/" element={<Home/>} />
               <Route path="/transactions" element={<Transaction/>} />
+              <Route path="/add-transaction" element={<AddTransaction />} />
             </Routes>
           </Layout>
         } />

@@ -3,13 +3,13 @@ import MiniTransaction from "@/components/shared/MiniTransaction"
 import Page from "@/components/shared/Page"
 import { fetchExpenses } from "@/store/context/expenseSlice"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
-import Expense from "@/types/Expense"
+import Transaction from "@/types/Transaction"
 import moment from "moment"
 import React, { useEffect } from "react"
 
 type Props = {}
 
-const Transaction = (_: Props) => {
+const TransactionPage = (_: Props) => {
   const dispatch = useAppDispatch()
   const transactions = useAppSelector((state) => state.expense.data)
 
@@ -28,7 +28,7 @@ const Transaction = (_: Props) => {
   const groupedTransactions = groupByDate(transactions)
 
   return (
-    <Page title="Transaction">
+    <Page goBack title="Transaction">
       <div className="flex-grow overflow-y-scroll mt-4 grid grid-cols-1 gap-4  px-4 scrollbar">
          {Object.keys(groupedTransactions).map((date) => (
         <div key={date}>
@@ -49,9 +49,9 @@ const Transaction = (_: Props) => {
   )
 }
 
-export default Transaction
+export default TransactionPage
 
-function groupByDate(transactions : Expense[]){
+function groupByDate(transactions : Transaction[]){
   return transactions.reduce((acc, transaction) => {
     const date = moment(transaction.date).format('DD MMM YYYY')
     if (!acc[date]) {
@@ -59,5 +59,5 @@ function groupByDate(transactions : Expense[]){
     }
     acc[date].push(transaction)
     return acc
-  }, {} as Record<string, Expense[]>)
+  }, {} as Record<string, Transaction[]>)
 }

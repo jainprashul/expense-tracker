@@ -1,15 +1,15 @@
-import Expense from "@/types/Expense"
+import Transaction from "@/types/Transaction"
 import moment from "moment"
 import { Badge } from "../ui/badge"
 import { MoveDownLeft, MoveUpRight } from "lucide-react"
 
 type Props = {
-  transaction : Expense
+  transaction : Transaction
 }
 
 function MiniTransaction({ transaction }: Props) {
   
-  const renderTransaction = (transaction: Expense, amt: number, extra: boolean = false) => {
+  const renderTransaction = (transaction: Transaction, amt: number, extra: boolean = false) => {
     const positive = amt > 0;
     return (
       <div key={transaction.id + (extra ? '-extra' : '')} className="grid grid-cols-[32px_1fr_auto] items-center last:mb-0 last:pb-0">

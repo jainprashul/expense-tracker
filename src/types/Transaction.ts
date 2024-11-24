@@ -1,5 +1,5 @@
-export default interface Expense {
-  id: string
+export default interface Transaction {
+  id?: string
   description?: string
   date: string
   type: string
