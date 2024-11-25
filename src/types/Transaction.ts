@@ -7,6 +7,7 @@ export default interface Transaction {
   received?: number
   notes?: string
   user_id?: string
+  category?: number
 }
 
 

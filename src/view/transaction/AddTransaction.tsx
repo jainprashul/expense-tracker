@@ -4,9 +4,11 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { ToggleGroupItem } from '@/components/ui/toggle-group'
 import { transactionService } from '@/services/expenseService'
+import { useAppSelector } from '@/store/hooks'
 import Transaction from '@/types/Transaction'
 import { ToggleGroup } from '@radix-ui/react-toggle-group'
 import { MoveDownLeftIcon, MoveUpRightIcon, SquarePlus } from 'lucide-react'
@@ -21,6 +23,8 @@ const AddTransaction = (_: Props) => {
   const dateRef = React.useRef<HTMLInputElement>(null)
   const [type, setType] = React.useState('expense')
 
+  const categories = useAppSelector((state) => state.expense.categories)
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     try {
@@ -31,6 +35,7 @@ const AddTransaction = (_: Props) => {
         description: formData.get('description') as string | undefined,
         date: formData.get('date') as string,
         notes: formData.get('note') as string,
+        category: parseInt(formData.get('category') as string)
       }
       if (type === 'expense') {
         data.paid = parseFloat(formData.get('amt') as string)
@@ -55,7 +60,7 @@ const AddTransaction = (_: Props) => {
         <Card>
           <CardContent className='sm:p-4 md:p-16 space-y-3 '> 
 
-        <h2 className="text-xl text-center font-semibold mb-10">Add Transaction</h2>
+        <h2 className="text-xl text-center font-semibold my-10">Add Transaction</h2>
 
         <div className="flex justify-center items-center flex-col gap-2">
           <input prefix='₹' required className='bg-transparent border h-16 w-80 !text-2xl text-center rounded-full' type='text' pattern='[0-9]*' name='amt' placeholder="Amount" />
@@ -83,11 +88,31 @@ const AddTransaction = (_: Props) => {
             }
           }} />
 
-          <input ref={dateRef} name="date" className='hidden' />
+          <input ref={dateRef} name="date" defaultValue={moment().format('YYYY-MM-DD')} className='hidden' />
         </div>
         <div className="grid w-full max-w-md items-center gap-1.5">
           <Label htmlFor="type">Type</Label>
           <Input required type="text" id="type" name='type' placeholder="Type" />
+        </div>
+
+        <div className="grid w-full max-w-md items-center gap-1.5">
+          <Label >Category</Label>
+          <Select name='category' defaultValue='1' >
+          <SelectTrigger className="mt-2">
+          <SelectValue placeholder="Category" />
+          </SelectTrigger>
+          <SelectContent>
+            {
+              // month with year with the format MMM YYYY with the current month selected by default 
+              categories.map(c => (
+                <SelectItem key={c.id} value={c.id!.toString()}>
+                  {c.name}
+                </SelectItem>
+              ))
+            }
+          </SelectContent>
+        </Select>
+          
         </div>
 
         <div className="grid w-full max-w-md items-center gap-1.5">
