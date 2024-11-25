@@ -1,6 +1,7 @@
 import { DatePicker } from '@/components/shared/DatePicker'
 import Page from '@/components/shared/Page'
 import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
@@ -50,12 +51,14 @@ const AddTransaction = (_: Props) => {
 
   return (
     <Page title="Add Transaction" goBack>
-      <form className="p-4 space-y-3 mx-auto" onSubmit={handleSubmit}>
+      <form className="mx-auto p-8" onSubmit={handleSubmit}>
+        <Card>
+          <CardContent className='sm:p-4 md:p-16 space-y-3 '> 
 
         <h2 className="text-xl text-center font-semibold mb-10">Add Transaction</h2>
 
         <div className="flex justify-center items-center flex-col gap-2">
-          <Input required className='h-16 w-80 !text-2xl text-center rounded-full' type='text' pattern='[0-9]*' name='amt' placeholder="Amount" />
+          <input prefix='₹' required className='bg-transparent border h-16 w-80 !text-2xl text-center rounded-full' type='text' pattern='[0-9]*' name='amt' placeholder="Amount" />
         </div>
         <div className="grid w-full max-w-md items-center gap-1.5 h-10 rounded-md border">
           <ToggleGroup className='flex *:flex-1' type="single" value={type} onValueChange={setType} >
@@ -95,6 +98,8 @@ const AddTransaction = (_: Props) => {
         <Button type='submit' className='w-full'>
           <SquarePlus className='mr-2' /> Add Transaction
         </Button>
+        </CardContent>
+        </Card>
       </form>
     </Page>
   )

@@ -13,7 +13,7 @@ export const authService = {
 
     localStorage.setItem('accessToken', data.session.access_token);
     localStorage.setItem('refreshToken', data.session.refresh_token);
-    localStorage.setItem('user', JSON.stringify(data.session.user));
+    localStorage.setItem('user', JSON.stringify(data.user));
 
 
     return data.session;
@@ -36,6 +36,14 @@ export const authService = {
     if (error) {
       throw new Error(error.message);
     }
+
+    let accessToken = data?.session?.access_token;
+    let refreshToken = data?.session?.refresh_token;
+    let user = data?.user;
+
+    accessToken && localStorage.setItem('accessToken', accessToken);
+    refreshToken && localStorage.setItem('refreshToken', refreshToken);
+    user && localStorage.setItem('user', JSON.stringify(user));
 
     return data;
   },

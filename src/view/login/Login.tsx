@@ -16,12 +16,14 @@ type Props = {}
 const Login = (_: Props) => {
 
   const [loading, setLoading] = React.useState(false)
+  const [error, setError] = React.useState('')
   const navigate = useNavigate()
 
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     try {
+      setError('')
       setLoading(true)
       const form = new FormData(e.currentTarget)
       const payload: Schema = {
@@ -36,14 +38,12 @@ const Login = (_: Props) => {
         replace: true
       })
 
-
-    } catch (error) {
+    } catch (error : any) {
+      setError(error.message)
       console.error(error)
     } finally {
       setLoading(false)
     }
-
-
   }
 
   return (
@@ -56,6 +56,8 @@ const Login = (_: Props) => {
         <Label htmlFor="password">Password</Label>
         <Input required name="password" type="password" />
 
+       {error && <p className="text-center text-red-500 text-sm p-2">{error}</p>}
+
         <Button type="submit" disabled={loading}>
           {
             loading ?<LoaderCircle className="animate-spin" /> : <LogInIcon /> 
@@ -63,8 +65,19 @@ const Login = (_: Props) => {
 
           <span>Login</span>  
         </Button>
-
       </form>
+
+      <div className='flex gap-2 justify-center  mt-4'>
+      <Button variant={'link'} onClick={() => navigate('/register')} className="mt-4">
+      Don't have an account?<span>Register</span> 
+      </Button>
+      
+
+      <Button variant={'link'} onClick={() => navigate('/reset-password')} className="mt-4">
+        <span>Forgot Password</span>
+      </Button>
+      </div>
+
 
     </div>
   )

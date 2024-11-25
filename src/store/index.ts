@@ -1,12 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit'
 import expenseSlice from './context/expenseSlice'
 import utilitySlice from './context/utilitySlice'
+import authSlice from './context/authSlice'
 // ...
 
 export const store = configureStore({
   reducer: {
-    expense : expenseSlice,
-    utility : utilitySlice,
+    expense: expenseSlice,
+    utility: utilitySlice,
+    auth: authSlice,
+
   },
 })
 

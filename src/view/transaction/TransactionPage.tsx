@@ -15,14 +15,19 @@ const TransactionPage = (_: Props) => {
   const transactions = useAppSelector((state) => state.expense.data)
 
   const [loading, setLoading] = React.useState(true)
-  const [monthYear, setMonthYear] = React.useState(moment().format('MMM YYYY'))
+  const [monthYear, setMonthYear] = React.useState(moment().format('YYYY-MM'))
 
   useEffect(() => {
+
+    // Get Start and End of the month 
+    const from = moment(monthYear).startOf('month').format('YYYY-MM-DD')
+    const to = moment(monthYear).endOf('month').format('YYYY-MM-DD')
     
-    dispatch(fetchExpenses()).finally(() => {
+    dispatch(fetchExpenses({
+      from , to    })).finally(() => {
       setLoading(false)
     })
-  }, [dispatch])
+  }, [dispatch, monthYear])
 
   if (loading) {
     return <Loading />
@@ -40,7 +45,7 @@ const TransactionPage = (_: Props) => {
             {
               // month with year with the format MMM YYYY with the current month selected by default 
               getMonthYear().map(({month, value}) => (
-                <SelectItem key={value} value={month}>
+                <SelectItem key={value} value={value}>
                   {month}
                 </SelectItem>
               ))
@@ -49,16 +54,21 @@ const TransactionPage = (_: Props) => {
         </Select>
       <div className="flex-grow overflow-y-scroll mt-4 grid grid-cols-1 gap-4  px-4 scrollbar">
 
-        {Object.keys(groupedTransactions).map((date) => (
+        {Object.keys(groupedTransactions).map((date) => {
+          const total = groupedTransactions[date].reduce((acc, transaction) => {
+            return acc - (transaction.paid || 0) + (transaction.received || 0)
+          }, 0)
+          return(
           <div key={date}>
-            <h2 className="text-lg font-semibold pb-1 mb-1 border-b">{date}</h2>
+            <h2 className="text-lg font-semibold pb-1 mb-1 border-b flex justify-between items-center">{date} <span className="text-sm font-normal text-gray-500"> ₹{total}</span></h2>
             <div className="space-y-1">
               {groupedTransactions[date].map((transaction) => (
                 <MiniTransaction key={transaction.id} transaction={transaction} />
               ))}
             </div>
           </div>
-        ))}
+        )}
+        )}
       </div>
 
 

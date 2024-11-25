@@ -20,7 +20,7 @@ const Home = (_: Props) => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    transactionService.getTransactions(5).then((data) => {
+    transactionService.getRecentTransactions(5).then((data) => {
       setLoading(false)
       setTransactions(data)
       console.log(data)

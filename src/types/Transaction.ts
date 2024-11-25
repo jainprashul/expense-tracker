@@ -15,3 +15,9 @@ export interface MontlyExpense {
   total_paid: number | null
   total_received: number | null
 }
+
+export interface Category {
+  readonly id?: string
+  description?: string
+  name : string
+}
