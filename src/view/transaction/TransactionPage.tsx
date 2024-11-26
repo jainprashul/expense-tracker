@@ -4,6 +4,7 @@ import Page from "@/components/shared/Page"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { TRANSACTION_ADD } from "@/navigation/route"
+import withAuth from "@/navigation/withAuth"
 import { expenseActions, fetchExpenses } from "@/store/context/expenseSlice"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
 import Transaction from "@/types/Transaction"
@@ -36,29 +37,32 @@ const TransactionPage = (_: Props) => {
   }, [dispatch, monthYear])
   const groupedTransactions = useMemo(() => groupByDate(transactions), [transactions])
 
-  
-  
-  return (
-    <Page goBack title="Transaction">
-      {loading && <Loading overlay/>}
-      <div className="flex items-center m-3 gap-2">
-      <Select value={monthYear} onValueChange={(e) => setMonthYear(e)} >
-        <SelectTrigger >
-          <SelectValue placeholder="Month Year" />
-        </SelectTrigger>
-        <SelectContent>
-          {
-            // month with year with the format MMM YYYY with the current month selected by default 
-            getMonthYear().map(({ month, value }) => (
-              <SelectItem key={value} value={value}>
-                {month}
-              </SelectItem>
-            ))
-          }
-        </SelectContent>
-      </Select>
 
-        <Button variant={'outline'} className="bg-zinc-800" onClick={() => navigate(TRANSACTION_ADD)}><PlusIcon size={24} /></Button>
+
+  return (
+    <Page goBack title="Transactions">
+      {loading && <Loading overlay />}
+      <div className="flex items-center m-3 gap-2">
+        <Select value={monthYear} onValueChange={(e) => setMonthYear(e)} >
+          <SelectTrigger >
+            <SelectValue placeholder="Month Year" />
+          </SelectTrigger>
+          <SelectContent>
+            {
+              // month with year with the format MMM YYYY with the current month selected by default 
+              getMonthYear().map(({ month, value }) => (
+                <SelectItem key={value} value={value}>
+                  {month}
+                </SelectItem>
+              ))
+            }
+          </SelectContent>
+        </Select>
+
+        <Button variant={'outline'} className="bg-zinc-800" onClick={() => {
+          dispatch(expenseActions.setCurrent(null))
+          navigate(TRANSACTION_ADD)
+        }}><PlusIcon size={24} /></Button>
       </div>
       <div className="flex-grow overflow-y-scroll mt-4 mb-8 grid grid-cols-1 gap-4 px-4 scrollbar">
 
@@ -93,7 +97,7 @@ const TransactionPage = (_: Props) => {
   )
 }
 
-export default TransactionPage
+export default withAuth(TransactionPage)
 
 function groupByDate(transactions: Transaction[]) {
   return transactions.reduce((acc, transaction) => {

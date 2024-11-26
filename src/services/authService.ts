@@ -22,6 +22,8 @@ export const authService = {
   logout : async () => {
     const { error } = await supabase.auth.signOut()
 
+    localStorage.clear();
+
     if (error) {
       throw new Error(error.message);
     }
@@ -37,20 +39,12 @@ export const authService = {
       throw new Error(error.message);
     }
 
-    let accessToken = data?.session?.access_token;
-    let refreshToken = data?.session?.refresh_token;
-    let user = data?.user;
-
-    accessToken && localStorage.setItem('accessToken', accessToken);
-    refreshToken && localStorage.setItem('refreshToken', refreshToken);
-    user && localStorage.setItem('user', JSON.stringify(user));
-
     return data;
   },
 
   resetPassword : async (email: string) => {
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${import.meta.env.VITE_APP_URL}/reset-password`
+      redirectTo: `${import.meta.env.VITE_APP_URL}/auth/verify`
     })
 
     if (error) {

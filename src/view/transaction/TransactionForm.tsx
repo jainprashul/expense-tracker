@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Textarea } from '@/components/ui/textarea'
 import { ToggleGroupItem } from '@/components/ui/toggle-group'
 import { TRANSACTIONS } from '@/navigation/route'
+import withAuth from '@/navigation/withAuth'
 import { transactionService } from '@/services/expenseService'
 import { useAppSelector } from '@/store/hooks'
 import Transaction from '@/types/Transaction'
@@ -163,4 +164,4 @@ const TransactionForm = ({
   )
 }
 
-export default TransactionForm
+export default withAuth(TransactionForm)

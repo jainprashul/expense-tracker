@@ -2,6 +2,7 @@ import Page from '@/components/shared/Page'
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 import { TRANSACTIONS } from '@/navigation/route'
+import withAuth from '@/navigation/withAuth'
 import { transactionService } from '@/services/expenseService'
 import { useAppSelector } from '@/store/hooks'
 import clsx from 'clsx'
@@ -112,7 +113,7 @@ const TransactionDetail = (_: Props) => {
   )
 }
 
-export default TransactionDetail
+export default withAuth(TransactionDetail)
 
 
 type DeleteProps = {
