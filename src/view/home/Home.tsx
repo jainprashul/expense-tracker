@@ -2,7 +2,7 @@ import Loading from "@/components/shared/Loading"
 import MiniTransaction from "@/components/shared/MiniTransaction"
 import Page from "@/components/shared/Page"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import withAuth from "@/navigation/withAuth"
 import { transactionService } from "@/services/expenseService"
 import Transaction from "@/types/Transaction"
@@ -10,6 +10,7 @@ import React, { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { Chart } from "./Chart"
 import { TRANSACTION_ADD, TRANSACTIONS } from "@/navigation/route"
+import { ChartAreaIcon, PlusCircle } from "lucide-react"
 
 
 type Props = {}
@@ -33,27 +34,35 @@ const Home = (_: Props) => {
 
   return (
     <Page >
-    <div className="p-4 w-full">
-      <Chart />
-      <Card className="mt-1">
-        <CardHeader>
-          <CardTitle>Recent Transactions</CardTitle>
-          <CardDescription>
-            Here are the recent transactions.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="grid">
-          {
-            transactions.map((transaction) =>
-              <MiniTransaction key={transaction.id} transaction={transaction} />)
-          }
-        </CardContent>
-        <CardFooter className="space-x-2">
-          <Button onClick={() => navigate(TRANSACTIONS)}>View All</Button>
-          <Button onClick={() => navigate(TRANSACTION_ADD)}>Add Transaction</Button>
-        </CardFooter>
-      </Card>
-    </div>
+      <div className="p-4 w-full">
+        <Chart />
+
+        <div className="mt-1 p-2 py-4">
+          <div className="flex justify-between *:flex-1 gap-2" >
+            <Button className="rounded-full" onClick={() => navigate(TRANSACTION_ADD)}> <PlusCircle/> Add Transaction</Button>
+            <Button className="rounded-full" onClick={() => navigate(TRANSACTIONS)}> <ChartAreaIcon /> Analytics</Button>
+          </div>
+        </div>
+
+        <Card className="mt-1">
+          <div className="flex justify-between items-center ">
+            <CardHeader>
+              <CardTitle>Recent Transactions</CardTitle>
+              <CardDescription>
+                Here are the recent transactions.
+              </CardDescription>
+            </CardHeader>
+            <Button className="mx-4" size={'sm'} onClick={() => navigate(TRANSACTIONS)}>View All</Button>
+
+          </div>
+          <CardContent className="grid">
+            {
+              transactions.map((transaction) =>
+                <MiniTransaction key={transaction.id} transaction={transaction} />)
+            }
+          </CardContent>
+        </Card>
+      </div>
     </Page>
   )
 }

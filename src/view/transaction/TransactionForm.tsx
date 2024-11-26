@@ -14,7 +14,7 @@ import Transaction from '@/types/Transaction'
 import { ToggleGroup } from '@radix-ui/react-toggle-group'
 import { LoaderIcon, MoveDownLeftIcon, MoveUpRightIcon, SquarePlus } from 'lucide-react'
 import moment from 'moment'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
@@ -85,14 +85,19 @@ const TransactionForm = ({
     }
   }
 
+  useEffect(() => {
+    // auto focus on the first input field
+    document.querySelector('input')?.focus()
+  }, [])
+
   return (
     <Page title={
       `${edit ? 'Edit' : 'Add'} Transaction`
     } goBack>
-      <form className="" onSubmit={handleSubmit}>
+      <form className="max-w-screen-sm mx-auto" onSubmit={handleSubmit}>
         <Card className='mt-4 mx-2'>
           <CardContent className='space-y-4'> 
-        <h2 className="text-xl text-center font-semibold my-10">{edit ? 'Edit' : 'Add'} Transaction</h2>
+        <h2 className="text-xl text-center font-semibold my-10">{edit ? 'Update Existing' : 'New'} Transaction</h2>
 
         <div className="flex justify-center items-center flex-col gap-2">
           <input required className='bg-transparent border h-16 w-80 !text-2xl text-center rounded-full' type='text' inputMode='numeric' pattern='[0-9]*' name='amt' placeholder="Amount" defaultValue={amt} />
