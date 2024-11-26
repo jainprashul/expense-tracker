@@ -9,6 +9,7 @@ import Transaction from "@/types/Transaction"
 import React, { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { Chart } from "./Chart"
+import { TRANSACTION_ADD, TRANSACTIONS } from "@/navigation/route"
 
 
 type Props = {}
@@ -23,10 +24,8 @@ const Home = (_: Props) => {
     transactionService.getRecentTransactions(5).then((data) => {
       setLoading(false)
       setTransactions(data)
-      console.log(data)
     })
-  }
-    , [])
+  }, [])
 
   if (loading) {
     return <Loading />
@@ -36,22 +35,22 @@ const Home = (_: Props) => {
     <Page >
     <div className="p-4 w-full">
       <Chart />
-      <Card className="mt-4">
+      <Card className="mt-1">
         <CardHeader>
           <CardTitle>Recent Transactions</CardTitle>
           <CardDescription>
             Here are the recent transactions.
           </CardDescription>
         </CardHeader>
-        <CardContent className="grid gap-4">
+        <CardContent className="grid">
           {
             transactions.map((transaction) =>
               <MiniTransaction key={transaction.id} transaction={transaction} />)
           }
         </CardContent>
         <CardFooter className="space-x-2">
-          <Button onClick={() => navigate('/transactions')}>View All</Button>
-          <Button onClick={() => navigate('/add-transaction')}>Add Transaction</Button>
+          <Button onClick={() => navigate(TRANSACTIONS)}>View All</Button>
+          <Button onClick={() => navigate(TRANSACTION_ADD)}>Add Transaction</Button>
         </CardFooter>
       </Card>
     </div>

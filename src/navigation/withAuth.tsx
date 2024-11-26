@@ -4,6 +4,7 @@ import { authActions } from '@/store/context/authSlice'
 import { useAppDispatch, useAppSelector } from '@/store/hooks'
 import React, { useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
+import { LOGIN } from './route'
 
 const withAuth = (Component: React.ComponentType) => {
   return (props: any) => {
@@ -38,7 +39,7 @@ const withAuth = (Component: React.ComponentType) => {
     }
     
     if (!isAuthenticated) {
-      return <Navigate to="/login" />
+      return <Navigate to={LOGIN} />
     }
 
     return <Component {...props} />

@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import Transaction, { Category, MontlyExpense } from '@/types/Transaction'
 import { transactionService } from '@/services/expenseService'
 
@@ -46,6 +46,9 @@ const expenseSlice = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
+    setCurrent: (state, action : PayloadAction<Transaction | null>) => {
+      state.current = action.payload
+    }
   },
   extraReducers: (builder) => {
     builder

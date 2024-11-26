@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label';
+import { HOME, REGISTER, RESET_PASSWORD } from '@/navigation/route';
 import { authService } from '@/services/authService';
 import {  LoaderCircle, LogInIcon } from 'lucide-react';
 import React from 'react';
@@ -34,7 +35,7 @@ const Login = (_: Props) => {
       const session = await authService.login(payload.email, payload.password);
       console.log(session)
 
-      navigate('/', {
+      navigate(HOME, {
         replace: true
       })
 
@@ -68,12 +69,12 @@ const Login = (_: Props) => {
       </form>
 
       <div className='flex gap-2 justify-center  mt-4'>
-      <Button variant={'link'} onClick={() => navigate('/register')} className="mt-4">
+      <Button variant={'link'} onClick={() => navigate(REGISTER)} className="mt-4">
       Don't have an account?<span>Register</span> 
       </Button>
       
 
-      <Button variant={'link'} onClick={() => navigate('/reset-password')} className="mt-4">
+      <Button variant={'link'} onClick={() => navigate(RESET_PASSWORD)} className="mt-4">
         <span>Forgot Password</span>
       </Button>
       </div>

@@ -2,17 +2,21 @@ import Transaction from "@/types/Transaction"
 import moment from "moment"
 import { Badge } from "../ui/badge"
 import { MoveDownLeft, MoveUpRight } from "lucide-react"
+import clsx from "clsx"
 
 type Props = {
   transaction : Transaction
+  onClick ?: () => void
 }
 
-function MiniTransaction({ transaction }: Props) {
+function MiniTransaction({ transaction, onClick }: Props) {
   
   const renderTransaction = (transaction: Transaction, amt: number, extra: boolean = false) => {
     const positive = amt > 0;
     return (
-      <div key={transaction.id + (extra ? '-extra' : '')} className="grid grid-cols-[32px_1fr_auto] items-center last:mb-0 last:pb-0">
+      <div key={transaction.id + (extra ? '-extra' : '')} className={
+        clsx("grid grid-cols-[32px_1fr_auto] items-center last:mb-0 last:pb-0  p-2 ", onClick && "cursor-pointer rounded-md hover:bg-zinc-800")
+      } onClick={onClick}>
         {positive ? 
           <MoveDownLeft className=" text-green-500" /> :
           <MoveUpRight className=" text-red-500" /> 

@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { HOME, LOGIN } from '@/navigation/route'
 import { authService } from '@/services/authService'
 import { AlertCircle, LoaderCircle, LogInIcon } from 'lucide-react'
 import React from 'react'
@@ -32,7 +33,7 @@ const Signup = (_: Props) => {
 
       await authService.signup(payload.email, payload.password)
 
-      navigate('/', {
+      navigate(HOME, {
         replace: true
       })
       
@@ -70,7 +71,7 @@ const Signup = (_: Props) => {
           <span>Signup</span>
         </Button>
 
-        <Button variant={'link'} type="button" onClick={() => navigate('/login')}>
+        <Button variant={'link'} type="button" onClick={() => navigate(LOGIN)}>
           <span>Already have an account? Login</span>
         </Button>
 

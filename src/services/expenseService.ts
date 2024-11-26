@@ -52,7 +52,17 @@ export const transactionService = {
     if (error) {
       throw new Error(error.message);
     }
+  },
 
+  updateTransaction: async (transaction: Transaction) => {
+    const { error } = await supabase
+      .from('expenses')
+      .update(transaction)
+      .match({ id: transaction.id });
+
+    if (error) {
+      throw new Error(error.message);
+    }
   },
 
   getCategories: async () => {
@@ -65,8 +75,19 @@ export const transactionService = {
     }
 
     return data as Category[]
-
   },
+
+  deleteTransaction: async (id: string) => {
+    const { error } = await supabase
+      .from('expenses')
+      .delete()
+      .match({ id });
+
+    if (error) {
+      throw new Error(error.message);
+    }
+  }
+
 
 
 }

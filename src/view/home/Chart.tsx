@@ -61,7 +61,7 @@ export function Chart() {
     <Card>
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
-          <CardTitle> {moment().format("MMM Y")}</CardTitle>
+          <CardTitle> {moment().format("MMM YYYY")}</CardTitle>
           <CardDescription>
             Here are the monthly expenses
           </CardDescription>
@@ -93,6 +93,7 @@ export function Chart() {
           <BarChart
             accessibilityLayer
             data={chartData}
+            
             margin={{
               left: 12,
               right: 12,
@@ -123,6 +124,7 @@ export function Chart() {
               }
             />
             <Bar dataKey={"total_paid"} fill={`hsl(var(--chart-1))`} />
+            <Bar dataKey={"total_received"} fill={`hsl(var(--chart-2))`} />
           </BarChart>
         </ChartContainer>
       </CardContent>
