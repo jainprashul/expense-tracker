@@ -8,8 +8,8 @@ import { transactionService } from "@/services/expenseService"
 import Transaction from "@/types/Transaction"
 import React, { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { Chart } from "./Chart"
-import { TRANSACTION_ADD, TRANSACTIONS } from "@/navigation/route"
+import { BarChartMonthlyExpense } from "../analytics/BarChartMonthlyExpense"
+import { ANALYTICS, TRANSACTION_ADD, TRANSACTIONS } from "@/navigation/route"
 import { ChartAreaIcon, PlusCircle } from "lucide-react"
 
 
@@ -35,12 +35,12 @@ const Home = (_: Props) => {
   return (
     <Page >
       <div className="p-4 w-full">
-        <Chart />
+        <BarChartMonthlyExpense />
 
         <div className="mt-1 p-2 py-4">
           <div className="flex justify-between *:flex-1 gap-2" >
             <Button className="rounded-full" onClick={() => navigate(TRANSACTION_ADD)}> <PlusCircle/> Add Transaction</Button>
-            <Button className="rounded-full" onClick={() => navigate(TRANSACTIONS)}> <ChartAreaIcon /> Analytics</Button>
+            <Button className="rounded-full" onClick={() => navigate(ANALYTICS)}> <ChartAreaIcon /> Analytics</Button>
           </div>
         </div>
 

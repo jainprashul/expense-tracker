@@ -3,6 +3,7 @@ import moment from "moment"
 import { Badge } from "../ui/badge"
 import { MoveDownLeft, MoveUpRight } from "lucide-react"
 import clsx from "clsx"
+import { NumberToCurrencyINR } from "@/utils/colors"
 
 type Props = {
   transaction : Transaction
@@ -30,10 +31,7 @@ function MiniTransaction({ transaction, onClick }: Props) {
         </div>
         <div>
           <p className="text-l font-semibold"> {
-            Intl.NumberFormat('en-IN', {
-              style: 'currency',
-              currency: 'INR'
-            }).format(amt)
+            NumberToCurrencyINR(amt)
           }</p>
           <p className="text-xs text-right text-gray-400">{moment(transaction.date).format("DD MMM YY")}</p>
         </div>

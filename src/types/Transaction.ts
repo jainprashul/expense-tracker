@@ -11,8 +11,8 @@ export default interface Transaction {
 }
 
 
-export interface MontlyExpense {
-  date: string
+export interface MonthlyTransaction {
+  day: string
   total_paid: number | null
   total_received: number | null
 }
@@ -21,4 +21,11 @@ export interface Category {
   readonly id?: string
   description?: string
   name : string
+}
+
+export interface CategoryWiseExpense {
+  category_id: number
+  category_name: string
+  total_paid: number | null
+  total_received: number | null
 }

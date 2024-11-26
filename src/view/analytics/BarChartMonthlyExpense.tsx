@@ -19,7 +19,8 @@ import {
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
 import { fetchMonthlyExpenses } from "@/store/context/expenseSlice"
 import moment from "moment"
-import { MoveDownLeft, MoveUpRight } from "lucide-react"
+import { ChevronLeft, ChevronRightIcon, MoveDownLeft, MoveUpRight } from "lucide-react"
+import { utilityActions } from "@/store/context/utilitySlice"
 
 const chartConfig = {
 
@@ -35,24 +36,40 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function Chart() {
+/**
+ * Bar Chart for Monthly Expenses
+ */
+export function BarChartMonthlyExpense() {
 
   const dispatch = useAppDispatch()
 
+  const monthYear = useAppSelector((state) => state.utility.filter.monthYear)
+
+  function handleNextMonth() {
+    if(moment() < moment(monthYear)) return
+    dispatch(utilityActions.setMonthYearFilter(moment(monthYear).add(1, "month").format("YYYY-MM")))
+  }
+
+  function handlePreviousMonth() {
+    dispatch(utilityActions.setMonthYearFilter(moment(monthYear).subtract(1, "month").format("YYYY-MM")))
+  }
+
   // Fetch Monthly Expenses
   React.useEffect(() => {
-    dispatch(fetchMonthlyExpenses())
-  }, [dispatch])
+    dispatch(fetchMonthlyExpenses(monthYear))
+  }, [dispatch, monthYear])
 
-  const chartData = useAppSelector((state) => state.expense.monlthyExpenses)
-
-
-
+  const chartData = useAppSelector((state) => state.expense.monthlyExpenses)
 
   const total = React.useMemo(
-    () => ({
-      paid: chartData.reduce((acc, curr) => acc + (curr.total_paid ?? 0), 0),
-      received: chartData.reduce((acc, curr) => acc + (curr.total_received ?? 0), 0),
+    () => chartData.reduce((acc, curr) => {
+      return {
+        paid: acc.paid + (curr.total_paid ?? 0),
+        received: acc.received + (curr.total_received ?? 0),
+      }
+    }, {
+      paid: 0,
+      received: 0,
     }),
     [ chartData ]
   )
@@ -61,8 +78,12 @@ export function Chart() {
     <Card>
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
-          <CardTitle> {moment().format("MMM YYYY")}</CardTitle>
-          <CardDescription>
+          <CardTitle className="flex items-center justify-between gap-2 text-lg font-semibold">
+            <ChevronLeft className="cursor-pointer" onClick={handlePreviousMonth} />
+            {moment(monthYear).format("MMMM YYYY")}
+            <ChevronRightIcon className="cursor-pointer" onClick={handleNextMonth} />
+            </CardTitle>
+          <CardDescription className="text-center">
             Here are the monthly expenses
           </CardDescription>
         </div>

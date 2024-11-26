@@ -44,6 +44,17 @@ export const transactionService = {
     return data;
   },
 
+  getCategoryExpenses: async (monthYear = moment().format('YYYY-MM')) => {
+    const { data, error } = await supabase
+      .rpc('get_category_wise_expenses', { month: monthYear });
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return data;
+  },
+
   addTransaction: async (transaction: Transaction) => {
     const { error } = await supabase
       .from('expenses')

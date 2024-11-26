@@ -4,6 +4,8 @@ import { ChevronLeft, LogOutIcon, Settings2Icon, User } from "lucide-react"
 import React from "react"
 import { Avatar, AvatarFallback } from "../ui/avatar"
 import { useAppSelector } from "@/store/hooks"
+import Logo from "@/assets/logo.svg"
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,13 +21,15 @@ import { PROFILE, SETTINGS } from "@/navigation/route"
 
 
 type Props = {
-  title?: string
+  title?: string | React.ReactNode
   onGoBack?: boolean
   children?: React.ReactNode
 }
 
 const Header = ({
-  title = 'Expense Tracker',
+  title = <span className="flex gap-2 items-center">
+    <img src={Logo} alt="Logo" className="h-7" /> Transact
+  </span>,
   onGoBack, children
 }: Props) => {
 
@@ -105,13 +109,13 @@ function AvatarMenu() {
         {menuList.map((item, index) => {
           if (item.hide) return null
           return (
-            <>
+            <div key={index}>
               {item.separatorAbove && <DropdownMenuSeparator />}
-              <DropdownMenuItem key={index} onClick={item.onClick}>
+              <DropdownMenuItem onClick={item.onClick}>
                 {item.icon} {item.name}
               </DropdownMenuItem>
               {item.separatorBelow && <DropdownMenuSeparator />}
-            </>
+            </div>
           )
         })
         }

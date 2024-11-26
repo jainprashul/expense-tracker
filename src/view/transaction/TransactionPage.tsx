@@ -6,8 +6,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { TRANSACTION_ADD } from "@/navigation/route"
 import withAuth from "@/navigation/withAuth"
 import { expenseActions, fetchExpenses } from "@/store/context/expenseSlice"
+import { utilityActions } from "@/store/context/utilitySlice"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
 import Transaction from "@/types/Transaction"
+import { NumberToCurrencyINR } from "@/utils/colors"
 import { PlusIcon } from "lucide-react"
 import moment from "moment"
 import React, { useEffect, useMemo } from "react"
@@ -21,8 +23,10 @@ const TransactionPage = (_: Props) => {
   const navigate = useNavigate()
 
   const [loading, setLoading] = React.useState(true)
-  const [monthYear, setMonthYear] = React.useState(moment().format('YYYY-MM'))
-
+  const monthYear = useAppSelector((state) => state.utility.filter.monthYear)
+  const setMonthYear = (e: string) => {
+    dispatch(utilityActions.setMonthYearFilter(e))
+  }
   useEffect(() => {
 
     // Get Start and End of the month 
@@ -73,10 +77,7 @@ const TransactionPage = (_: Props) => {
           return (
             <div key={date}>
               <h2 className="text-lg font-semibold pb-1 mb-1 border-b flex justify-between items-center">{date} <span className="text-sm font-normal text-gray-500">
-                {Intl.NumberFormat('en-IN', {
-                  style: 'currency',
-                  currency: 'INR'
-                }).format(total)}
+                {NumberToCurrencyINR(total)}
               </span></h2>
               <div className="space-y-1">
                 {groupedTransactions[date].map((transaction) => (

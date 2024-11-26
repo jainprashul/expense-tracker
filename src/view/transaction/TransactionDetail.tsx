@@ -5,6 +5,7 @@ import { TRANSACTIONS } from '@/navigation/route'
 import withAuth from '@/navigation/withAuth'
 import { transactionService } from '@/services/expenseService'
 import { useAppSelector } from '@/store/hooks'
+import { NumberToCurrencyINR } from '@/utils/colors'
 import clsx from 'clsx'
 import { DeleteIcon, Edit2 } from 'lucide-react'
 import moment from 'moment'
@@ -54,15 +55,7 @@ const TransactionDetail = (_: Props) => {
             clsx("text-3xl inline-flex items-center gap-1 font-semibold mt-4",
               transactionType == 'Received' ? 'text-green-500' : 'text-red-500'
             )
-          }>
-            {
-              Intl.NumberFormat('en-IN', {
-                style: 'currency',
-                currency: 'INR'
-              }).format(currentTransaction?.paid || currentTransaction?.received || 0)
-            }
-          </h2>
-
+          }>{NumberToCurrencyINR(currentTransaction?.paid || currentTransaction?.received || 0)}</h2>
           <h4 className="text-xl font-semibold mt-2">
             {currentTransaction?.description}
           </h4>

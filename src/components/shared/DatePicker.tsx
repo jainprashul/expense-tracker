@@ -45,6 +45,9 @@ export function DatePicker({ onSelect, selected }: Props) {
           selected={date}
           onSelect={setDate}
           initialFocus
+          disabled={
+            (date) => date > new Date()
+          }
         />
       </PopoverContent>
     </Popover>
