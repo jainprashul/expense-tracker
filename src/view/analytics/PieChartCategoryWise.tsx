@@ -1,5 +1,5 @@
 import * as React from "react"
-import { MoveDownLeft, MoveUpRight, TrendingUp } from "lucide-react"
+import { MoveDownLeft, MoveUpRight } from "lucide-react"
 import { Label, Pie, PieChart } from "recharts"
 
 import {
