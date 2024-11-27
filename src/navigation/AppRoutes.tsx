@@ -8,9 +8,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import onAppStart from './onAppStart'
 import Signup from '@/view/signup/Signup'
 import TransactionDetail from '@/view/transaction/TransactionDetail'
-import { ANALYTICS, HOME, LOGIN, REGISTER, RESET_PASSWORD, TRANSACTION_ADD, TRANSACTION_DETAIL, TRANSACTION_EDIT, TRANSACTIONS } from './route'
+import { ANALYTICS, HOME, LOGIN, PROFILE, REGISTER, RESET_PASSWORD, SETTINGS, TRANSACTION_ADD, TRANSACTION_DETAIL, TRANSACTION_EDIT, TRANSACTIONS } from './route'
 import ResetPassword from '@/view/login/ResetPassword'
 import Analytics from '@/view/analytics/Analytics'
+import Profile from '@/view/profile/Profile'
+import Settings from '@/view/settings/Settings'
 
 type Props = {}
 
@@ -28,6 +30,8 @@ const AppRoutes = (_: Props) => {
           <Layout>
             <Routes>
               <Route path={HOME} element={<Home />} />
+              <Route path={PROFILE} element={<Profile />} />
+              <Route path={SETTINGS} element={<Settings />} />
               <Route path={TRANSACTIONS} element={<Transaction />} />
               <Route path={TRANSACTION_DETAIL} element={<TransactionDetail />} />
               <Route path={TRANSACTION_EDIT} element={<TransactionForm edit />} />

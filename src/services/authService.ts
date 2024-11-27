@@ -1,4 +1,5 @@
 import supabase from "@/lib/supabase";
+import { UserMeta } from "@/types/UserMeta";
 
 export const authService = {
   login : async (email: string, password: string) => {
@@ -51,4 +52,25 @@ export const authService = {
       throw new Error(error.message);
     }
   },
+
+  updateUserData : async (data: UserMeta) => {
+    const { data : res , error } = await supabase.auth.updateUser({
+      data
+    })
+
+    if (error) {
+      throw new Error(error.message);
+    }
+    return res;
+  },
+
+  updateUserPassword : async (password: string) => {
+    const { error } = await supabase.auth.updateUser({
+      password
+    })
+
+    if (error) {
+      throw new Error(error.message);
+    };
+  }
 };

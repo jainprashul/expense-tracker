@@ -8,7 +8,7 @@ const Loading = ({
 }: Props) => {
   if (!overlay) {
     return (
-      <div className="flex items-center justify-center h-screen w-full">
+      <div className="z-50 flex items-center justify-center h-screen w-full">
         <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
       </div>
     )

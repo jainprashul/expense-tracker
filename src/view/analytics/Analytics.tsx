@@ -2,7 +2,6 @@ import Page from "@/components/shared/Page"
 import { PieChartX } from "@/view/analytics/PieChartCategoryWise"
 import { MonthlyTransactionTable } from "./MonthlyTransactionTable"
 import moment from "moment"
-import { Badge } from "@/components/ui/badge"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
 import { utilityActions } from "@/store/context/utilitySlice"
 import clsx from "clsx"
@@ -43,11 +42,11 @@ function MonthYearFilter() {
     <div className="flex items-center gap-2 mt-2 overflow-auto">
       {
         getMonthYear().map(({ month, value }) => (
-          <Badge className={
-            clsx("cursor-pointer", value === monthYear && 'bg-gray-600')
-          } variant={'secondary'} key={value} onClick={() => {
+          <div className={
+            clsx("rounded-md border px-2.5 py-0.5 text-xs font-semibold cursor-pointer bg-secondary", value === monthYear && '!bg-gray-600')
+          }  key={value} onClick={() => {
             dispatch(utilityActions.setMonthYearFilter(value))
-          }}>{month}</Badge>
+          }}>{month}</div>
         ))
       }
     </div>

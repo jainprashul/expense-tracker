@@ -21,6 +21,7 @@ export interface Category {
   readonly id?: string
   description?: string
   name : string
+  color : string
 }
 
 export interface CategoryWiseExpense {

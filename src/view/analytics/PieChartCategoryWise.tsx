@@ -36,7 +36,7 @@ export function PieChartX() {
 
   const chartData = useAppSelector((state) => state.expense.categoryWise).map((data, i) => ({
     ...data,
-    fill : colors[i]
+    fill : categories.find((category) => category.name === data.category_name)?.color ?? colors[i % colors.length]
   }));
 
   const total = React.useMemo(
@@ -58,7 +58,7 @@ export function PieChartX() {
     categories.forEach((category, index) => {
       config[category.name] = {
         label: category.name,
-        color: `hsl(${(index * 360) / categories.length}, 70%, 50%)`,
+        color: category.color ?? `hsl(${(index * 360) / categories.length}, 70%, 50%)`,
       }
     })
     return config
@@ -128,11 +128,11 @@ export function PieChartX() {
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-1">
           <MoveUpRight className="text-red-500" />
-          <span>Spent - {NumberToCurrencyINR(total.paid)} </span>
+          <span>Spent : {NumberToCurrencyINR(total.paid)} </span>
         </div>
         <div className="flex items-center gap-1">
           <MoveDownLeft className="text-green-500" />
-          <span>Received - {NumberToCurrencyINR(total.received)}</span>
+          <span>Received : {NumberToCurrencyINR(total.received)}</span>
         </div>
       </CardFooter>
     </Card>

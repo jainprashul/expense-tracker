@@ -1,6 +1,5 @@
 import Transaction from "@/types/Transaction"
 import moment from "moment"
-import { Badge } from "../ui/badge"
 import { MoveDownLeft, MoveUpRight } from "lucide-react"
 import clsx from "clsx"
 import { NumberToCurrencyINR } from "@/utils/colors"
@@ -22,10 +21,10 @@ function MiniTransaction({ transaction, onClick }: Props) {
           <MoveDownLeft className=" text-green-500" /> :
           <MoveUpRight className=" text-red-500" /> 
         }
-        <div className="space-y-1">
+      <div className="space-y-1">
           <p className="text-sm font-semibold">{transaction.description}</p>
           <div className="flex space-x-1 items-center">
-            <Badge className="bg-zinc-700 text-gray-400">{transaction.type}</Badge>
+            <div className="rounded-md border px-2.5 py-0.5 text-xs font-semibold cursor-pointer bg-secondary">{transaction.type}</div>
             <span className="text-xs text-gray-400">{transaction.notes}</span>
           </div>
         </div>

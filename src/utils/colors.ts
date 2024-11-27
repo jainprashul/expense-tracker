@@ -4,6 +4,8 @@ const colors = [
   "#50C878", // Emerald Green
   "#DAA520", // Goldenrod
   "#7851A9", // Royal Purple
+  "#1f0322", // Dark Purple
+  "#FF4500", // Orange Red
   "#FF7F50", // Coral
   "#708090", // Slate Gray
   "#FFF700", // Lemon Yellow
@@ -16,5 +18,5 @@ const colors = [
 export default colors;
 
 export function NumberToCurrencyINR(number: number) {
-  return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(number)
+  return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits:0 }).format(number)
 }
