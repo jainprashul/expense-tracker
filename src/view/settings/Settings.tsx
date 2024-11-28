@@ -28,7 +28,7 @@ const Settings = (_: Props) => {
   }
 
   return (
-    <Page title="Settings">
+    <Page goBack title="Settings">
       <div className="p-4">
         <h1 className="text-lg font-semibold">Backup & Restore</h1>
         <hr className='my-2'/>
