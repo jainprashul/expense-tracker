@@ -2,6 +2,7 @@ import Page from '@/components/shared/Page'
 import { Button } from '@/components/ui/button'
 import { transactionService } from '@/services/expenseService'
 import Transaction from '@/types/Transaction'
+import moment from 'moment'
 import React from 'react'
 
 type Props = {}
@@ -29,11 +30,19 @@ const Settings = (_: Props) => {
   return (
     <Page title="Settings">
       <div className="p-4">
-        <h1 className="text-2xl font-semibold">Settings</h1>
-
-        <div className="mt-4">
+        <h1 className="text-lg font-semibold">Backup & Restore</h1>
+        <hr className='my-2'/>
+        <div className="mt-4 space-y-2">
+          <p className='text-gray-400'>Export all your data as CSV</p>
           <Button onClick={exportAllData} >
             Export Data as CSV
+          </Button>
+
+          <div className="h-4"></div>
+
+          <p className='text-gray-400'>Import data from CSV</p>
+          <Button onClick={importFromCSV} >
+            Import Data from CSV
           </Button>
         </div>
       </div>
@@ -53,9 +62,7 @@ function exportAsCSV(data : Transaction[]) {
 
   // Get the data
   data.forEach((row) => {
-    console.log(row)
-    csv += Object.entries(row).map(([key, value]) => {
-      console.log(key, value)
+    csv += Object.entries(row).map(([_, value]) => {
       return value
     }).join(',') + '\n';
   });
@@ -66,11 +73,52 @@ function exportAsCSV(data : Transaction[]) {
   const a = document.createElement('a');
   a.setAttribute('hidden', '');
   a.setAttribute('href', url);
-  a.setAttribute('download', 'data.csv');
+  const name = `backup-transactions-${moment().format('YYYY-MM-DD')}.csv`;
+  a.setAttribute('download', name);
   document.body.appendChild(a); 
   a.click();
   document.body.removeChild(a);
   window.URL.revokeObjectURL(url);
 }
+
+function parseCSV(text: string) {
+  const rows = text.split('\n');
+  const headers = rows[0].split(',');
+  const data = rows.slice(1).map((row) => {
+    const values = row.split(',');
+    const obj: any = {};
+    headers.forEach((header, i) => {
+      obj[header] = values[i]; 
+    });
+    return obj;
+  });
+  console.log(data);
+}
+
+function importFromCSV() {
+  // read the file
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.csv';
+  input.onchange = (e) => {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const text = e.target?.result as string;
+        parseCSV(text);
+        document.body.removeChild(input);
+      }
+      reader.readAsText(file);
+    }
+  }
+
+  input.setAttribute('hidden', '');
+  document.body.appendChild(input);
+  input.click();
+
+}
+
+
 
   

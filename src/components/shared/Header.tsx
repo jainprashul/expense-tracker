@@ -34,7 +34,7 @@ const Header = ({
 }: Props) => {
 
   return (
-    <header className="flex items-center gap-2 border-b px-4 bg-zinc-800/20 shadow-md  h-16">
+    <header className="flex items-center gap-2 border-b px-4 bg-secondary/20 shadow-md  h-16">
       {onGoBack && <GoBack />}
       <h1 className={clsx("text-xl flex-grow font-bold", !onGoBack && "ml-2")}>{title}</h1>
       <div className="flex items-center gap-2">
@@ -53,7 +53,7 @@ function GoBack() {
     return
   }
   return (
-    <button onClick={() => window.history.back()} className="flex items-center gap-1 bg-zinc-800/20 text-gray-400 p-2 rounded-md">
+    <button onClick={() => window.history.back()} className="flex items-center gap-1 bg-secondary/20 text-gray-400 p-2 rounded-md">
       <ChevronLeft size={30} />
     </button>
   )

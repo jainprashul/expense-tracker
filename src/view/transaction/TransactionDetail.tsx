@@ -49,14 +49,19 @@ const TransactionDetail = (_: Props) => {
   return (
     <Page title="Transaction Detail" goBack>
       <div className="p-4">
+        
+        
 
-        <div className="text-center">
+        <div className="flex flex-col border rounded-lg items-center p-4 mx-1 gap-2">
+          <span className="text-4xl bg-secondary rounded-full w-16 h-16 flex justify-center items-center">
+          {category?.split(' ')[0]}
+          </span>
           <h2 className={
-            clsx("text-3xl inline-flex items-center gap-1 font-semibold mt-4",
+            clsx("text-3xl inline-flex items-center gap-1 font-semibold",
               transactionType == 'Received' ? 'text-green-500' : 'text-red-500'
             )
           }>{NumberToCurrencyINR(currentTransaction?.paid || currentTransaction?.received || 0)}</h2>
-          <h4 className="text-xl font-semibold mt-2">
+          <h4 className="text-xl font-semibold ">
             {currentTransaction?.description}
           </h4>
         </div>
@@ -65,6 +70,12 @@ const TransactionDetail = (_: Props) => {
         <h3 className="mt-5 text-lg font-semibold">Transaction Details</h3>
         <hr className="my-2" />
         <div>
+          <div className="flex justify-between">
+            <span className="text-gray-500">
+              Amount
+            </span>
+            <span>{NumberToCurrencyINR(currentTransaction?.paid || currentTransaction?.received || 0)}</span>
+          </div>
           <div className="flex justify-between">
             <span className="text-gray-500">
               Payment Method
@@ -86,8 +97,9 @@ const TransactionDetail = (_: Props) => {
             <span>{category}</span>
           </div>
           <div className="flex flex-col">
-            <span className="text-gray-500">Note</span>
-            <span>{currentTransaction?.notes}</span>
+            <span className="text-gray-500">Description</span>
+            <span className='ml-4 font-semibold' >{currentTransaction?.description}</span>
+            <span className='ml-4 text-gray-300'>{currentTransaction?.notes}</span>
           </div>
         </div>
 

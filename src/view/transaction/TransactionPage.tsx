@@ -63,7 +63,7 @@ const TransactionPage = (_: Props) => {
           </SelectContent>
         </Select>
 
-        <Button variant={'outline'} className="bg-zinc-800" onClick={() => {
+        <Button variant={'outline'} className="bg-secondary" onClick={() => {
           dispatch(expenseActions.setCurrent(null))
           navigate(TRANSACTION_ADD)
         }}><PlusIcon size={24} /></Button>

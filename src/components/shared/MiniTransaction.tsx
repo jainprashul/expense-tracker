@@ -15,7 +15,7 @@ function MiniTransaction({ transaction, onClick }: Props) {
     const positive = amt > 0;
     return (
       <div key={transaction.id + (extra ? '-extra' : '')} className={
-        clsx("grid grid-cols-[32px_1fr_auto] items-center last:mb-0 last:pb-0  p-2 ", onClick && "cursor-pointer rounded-md hover:bg-zinc-800")
+        clsx("grid grid-cols-[32px_1fr_auto] items-center last:mb-0 last:pb-0  p-2 ", onClick && "cursor-pointer rounded-md hover:bg-secondary")
       } onClick={onClick}>
         {positive ? 
           <MoveDownLeft className=" text-green-500" /> :
