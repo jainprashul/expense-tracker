@@ -14,8 +14,8 @@
     border-radius: 4px;
     z-index: 1;
     text-align: left;
-    box-shadow: 3px 4px 5px 0 #8885;
-    background-color: white;
+    box-shadow: 3px 4px 5px 0 rgba(78, 78, 78, 0.333);
+    background-color: rgb(20, 20, 20);
 }
 .PWABadge-toast-message {
     margin-bottom: 8px;
