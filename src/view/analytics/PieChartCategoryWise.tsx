@@ -1,12 +1,10 @@
 import * as React from "react"
-import { MoveDownLeft, MoveUpRight } from "lucide-react"
 import { Label, Pie, PieChart } from "recharts"
 
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -125,16 +123,8 @@ export function PieChartX() {
           </PieChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col gap-2 text-sm">
-        <div className="flex items-center gap-1">
-          <MoveUpRight className="text-red-500" />
-          <span>Spent : {NumberToCurrencyINR(total.paid)} </span>
-        </div>
-        <div className="flex items-center gap-1">
-          <MoveDownLeft className="text-green-500" />
-          <span>Received : {NumberToCurrencyINR(total.received)}</span>
-        </div>
-      </CardFooter>
+      {/* <CardFooter className="flex-col gap-2 text-sm">
+      </CardFooter> */}
     </Card>
   )
 }

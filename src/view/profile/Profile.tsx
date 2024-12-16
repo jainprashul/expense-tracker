@@ -32,15 +32,17 @@ const Profile = (_: Props) => {
     )
   }
 
+  const avatar = `https://api.multiavatar.com/${user?.email}.png`
+
   return (
-    <Page title="Profile">
+    <Page goBack title="Profile">
       <div className="p-4 mx-auto min-w-[70%]">
         <h1 className="text-center text-2xl font-semibold">User Profile</h1>
 
 
         <div className="mt-4">
           <div className="flex flex-col items-center justify-center gap-2">
-            <img src={`https://api.multiavatar.com/${user.email}.png`} alt="profile" className="rounded-full h-16 w-16" />
+            <img src={avatar} alt="profile" className="rounded-full h-16 w-16" />
             <div className='text-center'>
               <p className="text-lg font-semibold">{user.user_metadata.name ?? user.email}</p>
               <p className="text-sm text-gray-500">

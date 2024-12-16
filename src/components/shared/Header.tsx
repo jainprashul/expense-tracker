@@ -1,8 +1,8 @@
 
 import clsx from "clsx"
-import { ChevronLeft, LogOutIcon, Settings2Icon, User } from "lucide-react"
+import { ChevronLeft, LogOutIcon, Settings2Icon, User, HomeIcon } from "lucide-react"
 import React from "react"
-import { Avatar, AvatarFallback } from "../ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import { useAppSelector } from "@/store/hooks"
 import Logo from "@/assets/logo.svg"
 
@@ -17,7 +17,7 @@ import {
 import { authService } from "@/services/authService"
 import { MenuItem } from "@/types/Menu"
 import { useNavigate } from "react-router-dom"
-import { PROFILE, SETTINGS } from "@/navigation/route"
+import { HOME, PROFILE, SETTINGS } from "@/navigation/route"
 
 
 type Props = {
@@ -69,6 +69,13 @@ function AvatarMenu() {
 
   const menuList: MenuItem[] = [
     {
+      name : "Dashboard",
+      icon : <HomeIcon />,
+      onClick : () => {
+        navigate(HOME)
+      }
+    },
+    {
       name: 'Profile',
       icon: <User />,
       onClick: () => {
@@ -92,10 +99,13 @@ function AvatarMenu() {
     }
   ]
 
+  const avatarURL = `https://api.multiavatar.com/${user?.email}.png`
+  
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Avatar>
+        <Avatar >
+          <AvatarImage src={avatarURL} alt={user?.email} />
           <AvatarFallback>
             <User size={30} />
           </AvatarFallback>
