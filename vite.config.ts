@@ -41,7 +41,6 @@ export default defineConfig({
           url: '/analytics',
         }
       ],
-      display_override: [ "minimal-ui"],
       screenshots: [
         {
           src: 'screenshots/desktop.png',
